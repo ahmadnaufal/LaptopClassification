@@ -12,7 +12,7 @@ public class LaptopClassification {
     Rete rete;
     Context context;
 
-    String usage, brand, mobility, designType;
+    String usage, brand, mobility, designType, result;
     int budget;
 
     public LaptopClassification() throws JessException {
@@ -49,6 +49,10 @@ public class LaptopClassification {
     public void setBrand(String input) {
         brand = input;
     }
+    
+    public String getResult() {
+        return result;
+    }
 
     public void setBudget(int input) {
         if (budget < 0)
@@ -64,6 +68,15 @@ public class LaptopClassification {
         fact.setSlotValue("brand", new Value(brand, RU. STRING));
         fact.setSlotValue("budget", new Value(budget, RU. INTEGER));
         rete.assertFact(fact);
+
+        Iterator it;
+        it = rete.listFacts();
+        while (it.hasNext()) {
+            Fact fact2 = (Fact) it.next();
+            if ("MAIN::laptop".equals(fact2.getName()))
+                result = fact.getSlotValue("type").toString();
+        }
         rete.eval("(run)");
+        rete.eval("(reset)");
     }
 }
