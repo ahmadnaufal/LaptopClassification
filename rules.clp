@@ -4,7 +4,7 @@
 (deftemplate attribute (slot usage) (slot budget (type INTEGER)) (slot brand) (slot mobility) (slot design-type))
 
 
-(deftemplate laptop (slot type)
+(deftemplate laptop (slot type))
 
 
 ; Rule 1: Gaming Usage, Budget Type 1 (under 5jt)
@@ -149,7 +149,7 @@
    (attribute (budget ?budget))
    (test (>= ?budget 10000000))
    (test (< ?budget 15000000))
-   (attribute (brand "non-apple")
+   (attribute (brand "non-apple"))
    =>
    (assert (laptop (type "sony-vaio-svf13n12sg")))
    (printout t "Berdasarkan pemilihan Laptop Office yang memiliki budget di antara 10 hingga 15 juta dengan merk selain Apple, Laptop yang cocok adalah sony-vaio-svf13n12sg")

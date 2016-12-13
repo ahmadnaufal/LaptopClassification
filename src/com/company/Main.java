@@ -12,6 +12,8 @@ public class Main {
             Value v = r.eval("(square 3)");
             LaptopClassification laptopClassification = new LaptopClassification();
             laptopClassification.printRules();
+            laptopClassification.setBudget(10000000);
+            laptopClassification.classify();
 
             System.out.println(v.intValue(r.getGlobalContext()));
         } catch (JessException e) {
