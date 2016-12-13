@@ -75,7 +75,8 @@ public class LaptopClassification {
         while (it.hasNext()) {
             Fact fact2 = (Fact) it.next();
             if ("MAIN::laptop".equals(fact2.getName())) {
-                result = fact.getSlotValue("type").toString();
+                result = fact2.getSlotValue("type").toString();
+                System.out.println("YEAHHHSSS");
             }
         }
         rete.eval("(reset)");

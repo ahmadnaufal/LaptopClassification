@@ -117,20 +117,28 @@ public class LaptopClassificationController implements Initializable {
                 outputRecommend.clear();
 
                 try {
-                    mobility = choiceMobility.getValue().toLowerCase();
-                    usage = choiceUsage.getValue().toLowerCase();
+                    mobility = choiceMobility.getValue();
+                    usage = choiceUsage.getValue();
                     os = (choiceOS.getValue().equalsIgnoreCase("iOS")) ? "apple" : "non-apple";
                     renderingType = (checkbox3D.isSelected()) ? "3d" : "simple";
-                    outputRecommend.setText(usage + " " + mobility + " " + os + " " + renderingType + " " + Integer.parseInt(spinnerBudget.getEditor().getText()));
 
                     lp.setBrand(os);
-                    lp.setMobility(mobility);
+                    lp.setMobility(mobility.toLowerCase());
                     lp.setBudget(Integer.parseInt(spinnerBudget.getEditor().getText()));
                     lp.setDesignType(renderingType);
-                    lp.setUsage(usage);
+                    lp.setUsage(usage.toLowerCase());
                     lp.classify();
+                    String out;
+                    String type = lp.getResult().toUpperCase();
+                    if (type.equalsIgnoreCase("Nabung")){
+                        out = type;
+                    } else {
+                         out = "Laptop yang cocok untuk Anda adalah " + type;
+                    }
+                    outputRecommend.setText(out);
 
                 } catch (JessException e) {
+                    e.printStackTrace();
                     outputRecommend.setText("Error Jess");
                 } catch (NullPointerException ne){
                     outputRecommend.setText("Error Null Pointer");
