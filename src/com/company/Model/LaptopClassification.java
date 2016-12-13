@@ -49,7 +49,7 @@ public class LaptopClassification {
     public void setBrand(String input) {
         brand = input;
     }
-    
+
     public String getResult() {
         return result;
     }
@@ -68,15 +68,16 @@ public class LaptopClassification {
         fact.setSlotValue("brand", new Value(brand, RU. STRING));
         fact.setSlotValue("budget", new Value(budget, RU. INTEGER));
         rete.assertFact(fact);
+        rete.eval("(run)");
 
         Iterator it;
         it = rete.listFacts();
         while (it.hasNext()) {
             Fact fact2 = (Fact) it.next();
-            if ("MAIN::laptop".equals(fact2.getName()))
+            if ("MAIN::laptop".equals(fact2.getName())) {
                 result = fact.getSlotValue("type").toString();
+            }
         }
-        rete.eval("(run)");
         rete.eval("(reset)");
     }
 }
