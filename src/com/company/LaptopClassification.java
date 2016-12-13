@@ -2,6 +2,7 @@ package com.company;
 
 import jess.*;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
@@ -15,6 +16,13 @@ public class LaptopClassification {
         rete = new Rete();
         context = rete.getGlobalContext();
         rete.batch("rules.clp");
-        System.out.println(rete.listDefrules().next().toString());
+        //System.out.println(rete.listDefrules().next().toString());
+    }
+
+    public void printRules() {
+        Iterator it = rete.listDefrules();
+        while(it.hasNext()) {
+            System.out.println(it.next());
+        }
     }
 }
