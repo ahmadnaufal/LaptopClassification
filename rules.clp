@@ -156,14 +156,26 @@
 )
 
 
-; Rule 13: Office Usage, Budget Type 5 (above 15jt)
-(defrule usage-office-budget5 "Digunakan untuk menentukan penggunaan laptop casual/office"
+; Rule 13: Office Usage, Budget Type 5, Merek Apple (above 15jt)
+(defrule usage-office-budget5-apple "Digunakan untuk menentukan penggunaan laptop casual/office"
    (attribute (usage "office"))
    (attribute (budget ?budget))
    (test (>= ?budget 15000000))
+   (attribute (brand "apple"))
    =>
    (assert (laptop (type "asus-taichi-21")))
    (printout t "Berdasarkan pemilihan Laptop Office yang memiliki budget di atas 15 juta, Laptop yang cocok adalah asus-taichi-21")
+)
+
+; Rule 22: Office Usage, Budget Type 5, Merek Non Apple (above 15jt)
+(defrule usage-design-budget5-nonapple "Digunakan untuk menentukan penggunaan laptop casual/office"
+   (attribute (usage "office"))
+   (attribute (budget ?budget))
+   (test (>= ?budget 15000000))
+   (attribute (brand "non-apple"))
+   =>
+   (assert (laptop (type "macbook-pro-mluq2")))
+   (printout t "Berdasarkan pemilihan Laptop untuk Desain 3 dimensi (3D Modelling) yang memiliki budget di atas 65 juta, Laptop yang cocok adalah sager-np9377s")
 )
 
 
