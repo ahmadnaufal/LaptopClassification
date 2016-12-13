@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="443.0" prefWidth="438.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.Controller.LaptopClassificationController">
+   <children>
+      <Spinner fx:id="spinnerBudget" editable="true" layoutX="219.0" layoutY="256.0" />
+      <ChoiceBox fx:id="choiceUsage" layoutX="219.0" layoutY="86.0" prefHeight="26.0" prefWidth="171.0" />
+      <ChoiceBox fx:id="choiceOS" layoutX="219.0" layoutY="164.0" prefHeight="26.0" prefWidth="171.0" />
+      <ChoiceBox fx:id="choiceMobility" layoutX="219.0" layoutY="200.0" prefHeight="26.0" prefWidth="171.0" />
+      <Label layoutX="63.0" layoutY="91.0" text="Penggunaan" />
+      <Label fx:id="labelOS" layoutX="45.0" layoutY="169.0" text="Operating System" />
+      <Label layoutX="78.0" layoutY="205.0" text="Mobility" />
+      <CheckBox fx:id="checkbox3D" layoutX="248.0" layoutY="129.0" mnemonicParsing="false" text="3D Rendering" />
+      <Label layoutX="165.0" layoutY="35.0" text="Laptop Assistant" />
+      <Label layoutX="78.0" layoutY="261.0" prefHeight="16.0" prefWidth="52.0" text="Budget" />
+      <Button fx:id="buttonRecommend" layoutX="166.0" layoutY="313.0" mnemonicParsing="false" text="Recommend!" />
+      <TextArea fx:id="outputRecommend" layoutX="22.0" layoutY="366.0" prefHeight="63.0" prefWidth="395.0" />
+   </children>
+</AnchorPane>
