@@ -1,5 +1,6 @@
 package com.company;
 
+import com.company.Model.LaptopClassification;
 import jess.*;
 
 public class Main {
