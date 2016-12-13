@@ -6,6 +6,14 @@
 
 (deftemplate laptop (slot type))
 
+; Default Rule 0: Nabung!
+(defrule usage-nabung "Kalau budget kurang dari 3 juta, maka pengguna disarankan utk menabung!"
+    (attribute(budget ?budget))
+    (test (< ?budget 3000000))
+    =>
+    (assert (laptop (type "nabung")))
+    (printout t "Berdasarkan pemilihan budget, maka anda diharuskan untuk menabung lebih banyak uang lagi untuk membeli laptop!")
+)
 
 ; Rule 1: Gaming Usage, Budget Type 1 (under 5jt)
 (defrule usage-gaming-budget1 "Digunakan untuk menentukan penggunaan laptop gaming"
