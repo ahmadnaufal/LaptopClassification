@@ -130,10 +130,10 @@ public class LaptopClassificationController implements Initializable {
                     lp.classify();
                     String out;
                     String type = lp.getResult().toUpperCase();
-                    if (type.equalsIgnoreCase("Nabung")){
-                        out = type;
+                    if (type.equalsIgnoreCase("\"Nabung\"")){
+                        out = "Sebaiknya anda menabung terlebih dahulu";
                     } else {
-                         out = "Laptop yang cocok untuk Anda adalah " + type;
+                        out = "Laptop yang cocok untuk Anda adalah " + type;
                     }
                     outputRecommend.setText(out);
 

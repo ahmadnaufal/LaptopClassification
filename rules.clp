@@ -20,6 +20,7 @@
    (attribute(usage "gaming"))
    (attribute(budget ?budget))
    (test(< ?budget 5000000))
+   (test(>= ?budget 3000000))
    =>
    (assert (laptop (type "asus-x550dp")))
    (printout t "Berdasarkan pemilihan Laptop Gaming yang memiliki budget di bawah 5 juta, Laptop yang cocok adalah asus-x550dp.")
@@ -107,19 +108,20 @@
 (defrule usage-office-budget1 "Digunakan untuk menentukan penggunaan laptop casual/office"
    (attribute(usage "office"))
    (attribute(budget ?budget))
-   (test(< ?budget 3000000))
+   (test(< ?budget 4000000))
+   (test(>= ?budget 3000000))
    =>
    (assert (laptop (type "asus-x200ca")))
-   (printout t "Berdasarkan pemilihan Laptop Office yang memiliki budget di bawah 3 juta, Laptop yang cocok adalah asus-x200ca")
+   (printout t "Berdasarkan pemilihan Laptop Office yang memiliki budget di bawah 4 juta, Laptop yang cocok adalah asus-x200ca")
 )
 
 
-; Rule 9: Office Usage, Budget Type 2 (3jt - 5jt)
+; Rule 9: Office Usage, Budget Type 2 (4jt - 5jt)
 (defrule usage-office-budget2 "Digunakan untuk menentukan penggunaan laptop casual/office"
    (attribute(usage "office"))
    (attribute(budget ?budget))
    (test(< ?budget 5000000))
-   (test(>= ?budget 3000000))
+   (test(>= ?budget 4000000))
    =>
    (assert (laptop (type "asus-a445la")))
    (printout t "Berdasarkan pemilihan Laptop Office yang memiliki budget di antara 3 hingga 5 juta, Laptop yang cocok adalah asus-a445la")
@@ -198,6 +200,8 @@
    (attribute (design-type "simple"))
    (attribute (budget ?budget))
    (test (< ?budget 6000000))
+   (test (>= ?budget 3000000))
+
    =>
    (assert (laptop (type "hp-15-ay011nr")))
    (printout t "Berdasarkan pemilihan Laptop untuk Desain sederhana yang memiliki budget di bawah 6 juta, Laptop yang cocok adalah hp-15-ay011nr")
