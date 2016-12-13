@@ -16,7 +16,7 @@
       <ChoiceBox fx:id="choiceMobility" layoutX="219.0" layoutY="200.0" prefHeight="26.0" prefWidth="171.0" />
       <Label layoutX="63.0" layoutY="91.0" text="Penggunaan" />
       <Label fx:id="labelOS" layoutX="45.0" layoutY="169.0" text="Operating System" />
-      <Label layoutX="78.0" layoutY="205.0" text="Mobility" />
+      <Label fx:id="labelMobility" layoutX="78.0" layoutY="205.0" text="Mobility" />
       <CheckBox fx:id="checkbox3D" layoutX="248.0" layoutY="129.0" mnemonicParsing="false" text="3D Rendering" />
       <Label layoutX="165.0" layoutY="35.0" text="Laptop Assistant" />
       <Label layoutX="78.0" layoutY="261.0" prefHeight="16.0" prefWidth="52.0" text="Budget" />

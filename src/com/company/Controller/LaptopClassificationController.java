@@ -1,5 +1,6 @@
 package com.company.Controller;
 
+import com.company.Model.LaptopClassification;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,6 +12,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextArea;
+import jess.JessException;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -35,6 +37,9 @@ public class LaptopClassificationController implements Initializable {
     private Label labelOS;
 
     @FXML
+    private Label labelMobility;
+
+    @FXML
     private CheckBox checkbox3D;
 
     @FXML
@@ -51,57 +56,90 @@ public class LaptopClassificationController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        try {
+            LaptopClassification lp = new LaptopClassification();
 
-        List<String> mobilityList = new ArrayList<>();
-        mobilityList.add("High");
-        mobilityList.add("Medium");
-        mobilityList.add("Low");
-        ObservableList<String> observableMobility = FXCollections.observableList(mobilityList);
-        choiceMobility.setItems(observableMobility);
+            List<String> mobilityList = new ArrayList<>();
+            mobilityList.add("High");
+            mobilityList.add("Medium");
+            mobilityList.add("Light");
+            ObservableList<String> observableMobility = FXCollections.observableList(mobilityList);
+            choiceMobility.setItems(observableMobility);
+            choiceMobility.getSelectionModel().selectFirst();
 
-        List<String> usageList = new ArrayList<>();
-        usageList.add("Gaming");
-        usageList.add("Design");
-        usageList.add("Casual");
-        ObservableList<String> observableUsage = FXCollections.observableList(usageList);
-        choiceUsage.setItems(observableUsage);
+            List<String> usageList = new ArrayList<>();
+            usageList.add("Gaming");
+            usageList.add("Design");
+            usageList.add("Office");
+            ObservableList<String> observableUsage = FXCollections.observableList(usageList);
+            choiceUsage.setItems(observableUsage);
+            choiceUsage.getSelectionModel().selectFirst();
 
-        List<String> osList = new ArrayList<>();
-        osList.add("Windows");
-        osList.add("Linux");
-        osList.add("iOS");
-        ObservableList<String> observableOs = FXCollections.observableList(osList);
-        choiceOS.setItems(observableOs);
+            List<String> osList = new ArrayList<>();
+            osList.add("Windows");
+            osList.add("Linux");
+            osList.add("iOS");
+            ObservableList<String> observableOs = FXCollections.observableList(osList);
+            choiceOS.setItems(observableOs);
+            choiceOS.getSelectionModel().selectFirst();
 
-        choiceOS.setVisible(false);
-        checkbox3D.setVisible(false);
-        labelOS.setVisible(false);
+            choiceOS.setVisible(false);
+            checkbox3D.setVisible(false);
+            labelOS.setVisible(false);
 
-        choiceUsage.getSelectionModel().selectedItemProperty()
-                .addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-                    if (newValue.equalsIgnoreCase("Casual")){
-                        choiceOS.setVisible(true);
-                        labelOS.setVisible(true);
-                        checkbox3D.setVisible(false);
-                    } else if (newValue.equalsIgnoreCase("Design")){
-                        checkbox3D.setVisible(true);
-                        choiceOS.setVisible(false);
-                        labelOS.setVisible(false);
-                    } else {
-                        checkbox3D.setVisible(false);
-                        choiceOS.setVisible(false);
-                        labelOS.setVisible(false);
-                    }
-                });
+            spinnerBudget.getEditor().setText("0");
+
+            choiceUsage.getSelectionModel().selectedItemProperty()
+                    .addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+                        if (newValue.equalsIgnoreCase("Office")) {
+                            choiceOS.setVisible(true);
+                            labelOS.setVisible(true);
+                            checkbox3D.setVisible(false);
+                            choiceMobility.setVisible(false);
+                            labelMobility.setVisible(false);
+                        } else if (newValue.equalsIgnoreCase("Design")) {
+                            checkbox3D.setVisible(true);
+                            choiceOS.setVisible(false);
+                            labelOS.setVisible(false);
+                            choiceMobility.setVisible(false);
+                            labelMobility.setVisible(false);
+                        } else {
+                            checkbox3D.setVisible(false);
+                            choiceOS.setVisible(false);
+                            labelOS.setVisible(false);
+                            choiceMobility.setVisible(true);
+                            labelMobility.setVisible(true);
+                        }
+                    });
 
 
-        buttonRecommend.setOnAction(actionEvent -> {
-            mobility = choiceMobility.getValue();
-            usage = choiceUsage.getValue();
-            os = choiceOS.getValue();
-            renderingType = (checkbox3D.isSelected()) ? "3D" : "Simple";
-            outputRecommend.setText(usage + " " + mobility + " " + os + " " + renderingType);
-        });
+            buttonRecommend.setOnAction(actionEvent -> {
+                outputRecommend.clear();
+
+                try {
+                    mobility = choiceMobility.getValue().toLowerCase();
+                    usage = choiceUsage.getValue().toLowerCase();
+                    os = (choiceOS.getValue().equalsIgnoreCase("iOS")) ? "apple" : "non-apple";
+                    renderingType = (checkbox3D.isSelected()) ? "3d" : "simple";
+                    outputRecommend.setText(usage + " " + mobility + " " + os + " " + renderingType + " " + Integer.parseInt(spinnerBudget.getEditor().getText()));
+
+                    lp.setBrand(os);
+                    lp.setMobility(mobility);
+                    lp.setBudget(Integer.parseInt(spinnerBudget.getEditor().getText()));
+                    lp.setDesignType(renderingType);
+                    lp.setUsage(usage);
+                    lp.classify();
+
+                } catch (JessException e) {
+                    outputRecommend.setText("Error Jess");
+                } catch (NullPointerException ne){
+                    outputRecommend.setText("Error Null Pointer");
+                }
+
+            });
+        } catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
 }
