@@ -1,22 +1,28 @@
 ;
 ; RULE FORM GAMING USAGES
 ;
+(deftemplate attribute (slot usage) (slot budget (type INTEGER)) (slot brand) (slot mobility) (slot design-type))
+
+(deftemplate laptop (slot type))
 
 ; Rule 1: Gaming Usage, Budget Type 1 (under 5jt)
 (defrule usage-gaming-budget1 "Digunakan untuk menentukan penggunaan laptop gaming"
-    (usage gaming)
-    (budget 1)
+    (attribute(usage "gaming"))
+    (attribute(budget ?budget))
+    (test(<= ?budget 5000000))
     =>
-    (assert (laptop-type asus-x550dp))
+    (assert (laptop (type "asus-x550dp")))
     (printout t "Berdasarkan pemilihan Laptop Gaming yang memiliki budget di bawah 5 juta, Laptop yang cocok adalah asus-x550dp.")
 )
 
 ; Rule 2: Gaming Usage, Budget Type 2 (5jt - 7.5jt)
 (defrule usage-gaming-budget2 "Digunakan untuk menentukan penggunaan laptop gaming"
-    (usage gaming)
-    (budget 2)
+    (attribute (usage gaming))
+    (attribute (budget ?budget))
+    (test(<= ?budget 7500000))
+    (test(> ?budget 5000000))
     =>
-    (assert (laptop-type acer-e5-553g))
+    (assert (laptop (type "acer-e5-553g"))
     (printout t "Berdasarkan pemilihan Laptop Gaming yang memiliki budget di antara 5 hingga 7.5 juta, Laptop yang cocok adalah acer-e5-553g.")
 )
 
